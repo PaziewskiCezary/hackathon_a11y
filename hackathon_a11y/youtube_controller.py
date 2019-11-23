@@ -1,3 +1,5 @@
+import json
+
 import requests
 
 from .api_key import API_KEY
@@ -15,16 +17,22 @@ class YoutubeController:
         :param kwargs: request parameters, API-dependent
         :return: Content of the response, should be a JSON
         """
-        r = requests.get("https://www.googleapis.com/youtube/v3/{}".format(api),
+        return requests.get("https://www.googleapis.com/youtube/v3/{}"
+                            .format(api),
                          {
                              "key": API_KEY,
                              **kwargs
-                         })
+                         }).json()
 
-        return r
+    def search(self, phrase, max_results=25):
+        """
+        Requests search results of `phrase`
 
-    def search(self, phrase):
-        r = self.__request("channels", part="snippet,contentDetails,statistics",
-            id="UC_x5XG1OV2P6uZZ5FSM9Ttw")
-
-        print(r.content)
+        :param phrase: str
+        :param max_results: optional, default: 25
+        :return: Dictionary
+            "items" key contains a list of dictionaries representing the results
+                there "id"["videoId"] contains the video or playlist id
+        """
+        r = self.__request("search", part="snippet",
+            q=phrase, max_results="{}".format(max_results))
