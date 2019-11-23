@@ -2,7 +2,7 @@ from os import path
 
 from tkinter import *
 
-from .view import View
+from view import View
 
 class MainView(View):
     def add_image(self, window, filename, x, y, subsample_x, subsample_y, anchor):

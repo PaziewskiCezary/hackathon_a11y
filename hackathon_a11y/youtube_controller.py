@@ -2,7 +2,7 @@ import json
 
 import requests
 
-from .api_key import YT_API_KEY
+from api_key import YT_API_KEY
 
 class YoutubeController:
     """

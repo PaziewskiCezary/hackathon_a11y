@@ -3,7 +3,7 @@ import base64
 import requests
 import pyfy
 
-from .api_key import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
+from api_key import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
 class SpotifyController:
     def __init__(self):

@@ -1,5 +1,5 @@
-from .youtube_controller import YoutubeController
-from .view import View
+from youtube_controller import YoutubeController
+from view import View
 
 class YoutubeView(View):
     """

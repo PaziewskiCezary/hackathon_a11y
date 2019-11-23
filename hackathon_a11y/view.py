@@ -1,6 +1,6 @@
 from abc import abstractmethod
 
-from .user_settings import UserSettings
+from user_settings import UserSettings
 
 
 class View:
