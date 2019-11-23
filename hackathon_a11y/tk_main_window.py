@@ -9,10 +9,10 @@ def add_image(window,filename,x,y,subsample_x,subsample_y,anchor):
     button.place(relx=x, rely=y, anchor=anchor)
     window.smieci.append(photo)
     
-    def display():
+def display():
     window = Tk()
     window.title("Odtwarzacz")
-
+    window.configure(background="#FAE3B4")
     screen_width = window.winfo_screenwidth()
     screen_height = window.winfo_screenheight()
      
