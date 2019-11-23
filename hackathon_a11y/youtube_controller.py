@@ -34,6 +34,6 @@ class YoutubeController:
             "items" key contains a list of dictionaries representing the results
                 there "id"["videoId"] contains the video or playlist id
         """
-        r = self.__request("search", part="snippet",
+        return self.__request("search", part="snippet",
             q=phrase, max_results="{}".format(max_results))
 
