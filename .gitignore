@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Secret credentials
+hackathon_a11y/api_key.py
+client_secret.json
