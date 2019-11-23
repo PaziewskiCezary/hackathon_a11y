@@ -1,6 +1,6 @@
 from abc import abstractmethod
 
-from user_settings import UserSettings
+from hackathon_a11y.user_settings import UserSettings
 
 
 class View:

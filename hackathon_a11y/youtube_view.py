@@ -1,5 +1,5 @@
-from youtube_controller import YoutubeController
-from view import View
+from hackathon_a11y.youtube_controller import YoutubeController
+from hackathon_a11y.view import View
 
 class YoutubeView(View):
     """
