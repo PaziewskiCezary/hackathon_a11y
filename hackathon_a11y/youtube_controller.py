@@ -2,7 +2,7 @@ import json
 
 import requests
 
-from .api_key import API_KEY
+from .api_key import YT_API_KEY
 
 class YoutubeController:
     """
@@ -20,7 +20,7 @@ class YoutubeController:
         return requests.get("https://www.googleapis.com/youtube/v3/{}"
                             .format(api),
                          {
-                             "key": API_KEY,
+                             "key": YT_API_KEY,
                              **kwargs
                          }).json()
 
@@ -36,3 +36,4 @@ class YoutubeController:
         """
         r = self.__request("search", part="snippet",
             q=phrase, max_results="{}".format(max_results))
+
