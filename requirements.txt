@@ -1,2 +1,4 @@
 requests
 pyfy
+python-vlc
+pafy
