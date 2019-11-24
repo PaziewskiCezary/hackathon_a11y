@@ -1,9 +1,8 @@
+import os
 import tkinter as tk
 from abc import abstractmethod
-from time import sleep
 
 from hackathon_a11y.user_settings import UserSettings
-
 
 class View:
     """
@@ -41,6 +40,7 @@ class View:
         self.window.smieci = []
 
     def change_view(self, new_view_class, *args, **kwargs):
+        self.window.after_cancel(self.task)
         self.window.destroy()
         new_window = new_view_class(self.parent_controller, *args, **kwargs)
         new_window.display()
@@ -64,7 +64,7 @@ class View:
         self.highlighted_element = butt
         butt.config(background="black")
 
-        def task(self, i):
+        def highlight_next_item(self, i):
             butts = self.highlightable
             if i >= len(butts): # list could have shrunk in the meantime
                 i = 0
@@ -75,9 +75,14 @@ class View:
             butt.config(background="black")
             self.window.update_idletasks()
             self.window.update()
-            self.window.after(self.user_settings.highlight_time, lambda : task(self, i))
+            self.task = self.window.after(self.user_settings.highlight_time, lambda : highlight_next_item(self, i))
+            try:
+                os.system("mplayer " + butt.sound)
+            except Exception:
+                pass
 
-        self.window.after(self.user_settings.highlight_time, lambda : task(self, i))
+
+        self.window.after(self.user_settings.highlight_time, lambda : highlight_next_item(self, i))
         self.window.mainloop()
 
 

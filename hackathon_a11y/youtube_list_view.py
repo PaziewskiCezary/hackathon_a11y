@@ -36,6 +36,7 @@ class YoutubeListView(View):
 
         gui = tk.Frame(self.window)
         gui.grid(row=len(self.videos) + 1, sticky="w") # 1 for search bar
+        gui.configure(background="#FAE3B4")
 
         # Thumbnail
         thumbnail_url = video_desc["snippet"]["thumbnails"]["default"]["url"]
@@ -54,7 +55,7 @@ class YoutubeListView(View):
         self.videos.append((video_desc, gui))
         try:
             video_id = video_desc["id"]["videoId"]
-            self.register(gui, lambda x : self.change_view(self.parent_controller.views["Youtube"], video_id))
+            self.register(gui, lambda x : self.change_view(self.parent_controller.views["Youtube"], video_id=video_id))
         except KeyError:
             pass # lol
         self.window.update()

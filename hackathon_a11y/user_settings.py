@@ -1,5 +1,4 @@
 class UserSettings:
     def __init__(self):
         # Time an element should be highlighted (in milliseconds)
-        self.highlight_time = 1000
-        self.dead_time = 0
+        self.highlight_time = 3000
