@@ -1,4 +1,6 @@
+import tkinter as tk
 from abc import abstractmethod
+from time import sleep
 
 from hackathon_a11y.user_settings import UserSettings
 
@@ -20,9 +22,58 @@ class View:
             If key-event is detected, function action_map[highlighted_element]
             is called with highlighted_element as its argument
     """
-
     user_settings = UserSettings()
 
+    def __init__(self):
+        self.highlighted_element = None
+        self.highlightable = []
+        self.actions = dict()
+
+        self.window = tk.Tk()
+
+        self.window.bind('<Button-1>', self.select)
+        # self.window.config(command=self.select)
+
+        self.window.title("Odtwarzacz")
+        self.window.configure(background="#FAE3B4")
+        screen_width = self.window.winfo_screenwidth()
+        screen_height = self.window.winfo_screenheight()
+
+        self.window.geometry(str(screen_width) + 'x' + str(screen_height))
+        self.window.smieci = []
+
+    def change_view(self, new_view_class, **kwargs):
+        self.window.destroy()
+        new_window = new_view_class(**kwargs)
+        new_window.display()
+
+    def select(self):
+        return self.actions[self.highlighted_element](self.highlighted_element)
+
+    def add_image(self, filename, x, y, subsample_x, subsample_y, anchor):
+        photo = tk.PhotoImage(master=self.window, file=filename)
+        photo = photo.subsample(subsample_x, subsample_y)
+        button = tk.Button(self.window, image=photo)
+        button.place(relx=x, rely=y, anchor=anchor)
+        self.window.smieci.append(photo)
+        return button
+
+    def mainloop(self):
+        #self.window.mainloop()
+        while (True):
+            for butt in self.highlightable:
+                self.highlighted_element = butt
+                butt.config(background="black")
+                self.window.update_idletasks()
+                self.window.update()
+                sleep(2)
+                butt.config(background="#FAE3B4", command=None)
+                self.window.update_idletasks()
+                self.window.update()
+
+    def register(self, button, action):
+        self.highlightable.append(button)
+        self.actions[button] = action
 
     @abstractmethod
     def display(self):
