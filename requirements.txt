@@ -2,3 +2,5 @@ requests
 pyfy
 python-vlc
 pafy
+youtube-dl
+Pillow
