@@ -1,4 +1,4 @@
-from hackathon_a11y.main_view import MainView
+from hackathon_a11y.views_controller import ViewsController
 
-mv = MainView()
-mv.display()
+v = ViewsController()
+v.start()

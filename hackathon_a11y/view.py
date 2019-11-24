@@ -24,15 +24,13 @@ class View:
     """
     user_settings = UserSettings()
 
-    def __init__(self):
+    def __init__(self, parent_controller):
+        self.parent_controller = parent_controller
         self.highlighted_element = None
         self.actions = dict()
 
         self.window = tk.Tk()
-
-        self.window.bind('<Button-1>', self.select)
-        # self.window.config(command=self.select)
-
+        self.window.bind('<Return>', self.select)
         self.window.title("Odtwarzacz")
         self.window.configure(background="#FAE3B4")
         screen_width = self.window.winfo_screenwidth()
@@ -43,7 +41,7 @@ class View:
 
     def change_view(self, new_view_class, **kwargs):
         self.window.destroy()
-        new_window = new_view_class(**kwargs)
+        new_window = new_view_class(self.parent_controller, **kwargs)
         new_window.display()
 
     def select(self, event):
@@ -54,7 +52,7 @@ class View:
         photo = photo.subsample(subsample_x, subsample_y)
         button = tk.Button(self.window, image=photo)
         button.place(relx=x, rely=y, anchor=anchor)
-        self.window.smieci.append(photo)
+        self.window.smieci.append(photo) # To make it not garbage collected since tkinter will not show it otherwise
         return button
 
     def mainloop(self):
@@ -66,6 +64,8 @@ class View:
         butt.config(background="black")
 
         def task(self, butts, i):
+            if i >= len(butts): # list could have shrunk in the meantime
+                i = 0
             self.highlighted_element.config(background="#FAE3B4")
             i = (i + 1) % len(butts)
             butt = butts[i]

@@ -24,7 +24,7 @@ class YoutubeController:
                              **kwargs
                          }).json()
 
-    def search(self, phrase, max_results=25):
+    def search(self, phrase, max_results=10):
         """
         Requests search results of `phrase`
 

@@ -19,8 +19,9 @@ class MainView(View):
 
         b = self.add_image(resources_path + "strzalka.png", 0, 0, 2, 2, 'nw')
         self.register(b, lambda x : sys.exit(0))
-        self.add_image(resources_path + "spotify.png", 0.2, 0.5, 2, 2, CENTER)
-        self.add_image(resources_path + "youtube.png", 0.5, 0.5, 2, 2, CENTER)
+        # self.add_image(resources_path + "spotify.png", 0.2, 0.5, 2, 2, CENTER)
+        b = self.add_image(resources_path + "youtube.png", 0.5, 0.5, 2, 2, CENTER)
+        self.register(b, lambda x : self.change_view(self.parent_controller.views["YoutubeList"]))
         self.add_image(resources_path + "rss.png", 0.8, 0.5, 2, 2, CENTER)
 
         self.mainloop()
