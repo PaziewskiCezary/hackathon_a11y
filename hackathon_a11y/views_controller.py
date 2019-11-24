@@ -1,6 +1,7 @@
 from hackathon_a11y.main_view import MainView
 from hackathon_a11y.youtube_list_view import YoutubeListView
 from hackathon_a11y.youtube_view import YoutubeView
+from hackathon_a11y.youtube_keyboard_view import YouTubeKeyboardView
 
 class ViewsController:
     def __init__(self):
@@ -8,6 +9,7 @@ class ViewsController:
         self.views = {
             "Main" : MainView,
             "YoutubeList" : YoutubeListView,
+            "YoutubeKeyboard" : YouTubeKeyboardView,
             "Youtube" : YoutubeView
         }
 

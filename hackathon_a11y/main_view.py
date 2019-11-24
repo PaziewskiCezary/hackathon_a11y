@@ -21,11 +21,22 @@ class MainView(View):
         b = self.add_image(resources_path + "strzalka.png", 0, 0, 2, 2, 'nw')
         b.sound = resources_path_music + 'wstecz.mp3'
         self.register(b, lambda x : sys.exit(0))
-        # self.add_image(resources_path + "spotify.png", 0.2, 0.5, 2, 2, CENTER)
+        self.window.smieci.append(b)
+
+        b = self.add_image(resources_path + "spotify.png", 0.2, 0.5, 2, 2, CENTER)
+        b.sound = resources_path_music + 'Spotify.mp3'
+        self.register(b, lambda x: x)
+        self.window.smieci.append(b)
+
         b = self.add_image(resources_path + "youtube.png", 0.5, 0.5, 2, 2, CENTER)
         b.sound = resources_path_music + 'yt.mp3'
-        self.register(b, lambda x : self.change_view(self.parent_controller.views["YoutubeList"]))
-        self.add_image(resources_path + "rss.png", 0.8, 0.5, 2, 2, CENTER)
+        self.register(b, lambda x : self.change_view(self.parent_controller.views["YoutubeKeyboard"]))
+        self.window.smieci.append(b)
+
+        b = self.add_image(resources_path + "rss.png", 0.8, 0.5, 2, 2, CENTER)
+        b.sound = resources_path_music + 'wiadomosci.mp3'
+        self.register(b, lambda x: x)
+        self.window.smieci.append(b)
 
         self.mainloop()
 

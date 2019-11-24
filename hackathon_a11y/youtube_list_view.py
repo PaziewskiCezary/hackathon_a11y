@@ -13,10 +13,11 @@ class YoutubeListView(View):
 
     controller = YoutubeController()
     tempdir = tempfile.gettempdir()
-    timer = time.time()
+    timer = 0
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, query="", **kwargs):
         super().__init__(*args, **kwargs)
+        self.query = query
         self.videos = [] # List of pairs (Video descriptor : dictionary, its tk GUI Element)
 
     def reset_list(self):
@@ -60,24 +61,27 @@ class YoutubeListView(View):
             pass # lol
         self.window.update()
 
-
     def display(self):
-        self.query = tk.StringVar()
-        self.query.trace("w", lambda l, idx, mode: self.update_results())
-        entry = tk.Entry(self.window, textvariable=self.query, font="arial 80 ", justify="center", fg="black")
+        self.query_var = tk.StringVar(value=self.query)
+        entry = tk.Entry(self.window, textvariable=self.query_var, font="arial 80 ", justify="center", fg="black")
         # entry.place(relx=0.25, rely=0.90, height=100, width=100)
         entry.focus_set()
         entry.grid(row=0, sticky="n")
 
         resources_path = path.join(path.dirname(__file__), "../images/")
+        resources_path_music = path.join(path.dirname(__file__), "../sounds/")
+
         b = self.add_image(resources_path + "strzalka.png", 0.1, 1.0, 2, 2, "s")
+        b.sound = path.join(resources_path_music, "wstecz.mp3")
         self.register(b, lambda x : self.change_view(self.parent_controller.views["Main"]))
+
+        self.update_results()
 
         self.mainloop()
 
     def update_results(self):
         if time.time() - self.timer > 1.0: # to be safe xD
-            query = self.query.get()
+            query = self.query_var.get()
             self.reset_list()
             try:
                 results = self.controller.search(query)["items"]

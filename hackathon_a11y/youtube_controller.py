@@ -36,10 +36,10 @@ class YoutubeController:
             "items" key contains a list of dictionaries representing the results
                 there "id"["videoId"] contains the video or playlist id
         """
-        import json
-        with open("hackathon_a11y/example.json", 'r') as f:
-            res = json.load(f)
-        return res
+        # import json
+        # with open("hackathon_a11y/example.json", 'r') as f:
+        #     res = json.load(f)
+        # return res
         return self.__request("search", part="snippet",
-            q=phrase, max_results="{}".format(max_results))
+            q=phrase, type="video", max_results="{}".format(max_results))
 

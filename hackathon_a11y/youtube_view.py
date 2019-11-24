@@ -31,7 +31,7 @@ class YoutubeView(View):
 
         b = self.add_image(resources_path + "strzalka.png", 0.1, 1.0, 2, 2, "s")
         b.sound = resources_path_music + 'wstecz.mp3'
-        self.register(b, lambda x : self.change_view(self.parent_controller.views["YoutubeList"]))
+        self.register(b, lambda x : self.stop())
 
         b = self.add_image(resources_path + "tyl.png", 0.3, 1.0, 4, 4, "s")
         b.sound = resources_path_music + 'tyl.mp3'
@@ -83,6 +83,7 @@ class YoutubeView(View):
     def stop(self):
         """Stop the player."""
         self.vlc_player.stop()
+        self.change_view(self.parent_controller.views["YoutubeKeyboard"])
 
     def play_film(self, file):
         """Plays a file"""
