@@ -17,12 +17,14 @@ class YoutubeController:
         :param kwargs: request parameters, API-dependent
         :return: Content of the response, should be a JSON
         """
-        return requests.get("https://www.googleapis.com/youtube/v3/{}"
+        r = requests.get("https://www.googleapis.com/youtube/v3/{}"
                             .format(api),
                          {
                              "key": YT_API_KEY,
                              **kwargs
                          }).json()
+        print(r)
+        return r
 
     def search(self, phrase, max_results=10):
         """

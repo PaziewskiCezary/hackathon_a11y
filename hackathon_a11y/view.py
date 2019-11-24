@@ -26,6 +26,7 @@ class View:
 
     def __init__(self, parent_controller):
         self.parent_controller = parent_controller
+        self.highlightable = []
         self.highlighted_element = None
         self.actions = dict()
 
@@ -39,9 +40,9 @@ class View:
         self.window.geometry(str(screen_width) + 'x' + str(screen_height))
         self.window.smieci = []
 
-    def change_view(self, new_view_class, **kwargs):
+    def change_view(self, new_view_class, *args, **kwargs):
         self.window.destroy()
-        new_window = new_view_class(self.parent_controller, **kwargs)
+        new_window = new_view_class(self.parent_controller, *args, **kwargs)
         new_window.display()
 
     def select(self, event):
@@ -57,13 +58,14 @@ class View:
 
     def mainloop(self):
         #self.window.mainloop()
-        butts = list(self.actions.keys())
+        butts = self.highlightable
         i = 0
         butt = butts[i]
         self.highlighted_element = butt
         butt.config(background="black")
 
-        def task(self, butts, i):
+        def task(self, i):
+            butts = self.highlightable
             if i >= len(butts): # list could have shrunk in the meantime
                 i = 0
             self.highlighted_element.config(background="#FAE3B4")
@@ -73,14 +75,19 @@ class View:
             butt.config(background="black")
             self.window.update_idletasks()
             self.window.update()
-            self.window.after(self.user_settings.highlight_time, lambda : task(self, butts, i))
+            self.window.after(self.user_settings.highlight_time, lambda : task(self, i))
 
-        self.window.after(self.user_settings.highlight_time, lambda : task(self, butts, i))
+        self.window.after(self.user_settings.highlight_time, lambda : task(self, i))
         self.window.mainloop()
 
 
     def register(self, button, action):
+        self.highlightable.append(button)
         self.actions[button] = action
+
+    def unregister(self, button):
+        self.highlightable.remove(button)
+        self.actions.pop(button)
 
     @abstractmethod
     def display(self):

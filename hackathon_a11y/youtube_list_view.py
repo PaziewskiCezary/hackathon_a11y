@@ -1,4 +1,5 @@
 import tempfile
+import time
 import tkinter as tk
 import urllib.request
 from os import path
@@ -12,6 +13,7 @@ class YoutubeListView(View):
 
     controller = YoutubeController()
     tempdir = tempfile.gettempdir()
+    timer = time.time()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -19,6 +21,7 @@ class YoutubeListView(View):
 
     def reset_list(self):
         for v, l in self.videos:
+            self.unregister(l)
             l.destroy()
         self.videos = []
 
@@ -49,6 +52,11 @@ class YoutubeListView(View):
         gui.desc_label = tk.Label(gui, text=video_desc["snippet"]["description"]).grid(row=1, column=1, sticky="w")
 
         self.videos.append((video_desc, gui))
+        try:
+            video_id = video_desc["id"]["videoId"]
+            self.register(gui, lambda x : self.change_view(self.parent_controller.views["Youtube"], video_id))
+        except KeyError:
+            pass # lol
         self.window.update()
 
 
@@ -67,13 +75,18 @@ class YoutubeListView(View):
         self.mainloop()
 
     def update_results(self):
-        query = self.query.get()
-        self.reset_list()
-        results = self.controller.search(query)["items"]
-        for result in results:
-            self.show_video(result)
+        if time.time() - self.timer > 1.0: # to be safe xD
+            query = self.query.get()
+            self.reset_list()
+            try:
+                results = self.controller.search(query)["items"]
+                for result in results:
+                    self.show_video(result)
+            except KeyError:
+                pass
 
-        self.window.update()
+            self.timer = time.time()
+            self.window.update()
 
 
 if __name__ == "__main__":
