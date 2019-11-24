@@ -26,7 +26,6 @@ class View:
 
     def __init__(self):
         self.highlighted_element = None
-        self.highlightable = []
         self.actions = dict()
 
         self.window = tk.Tk()
@@ -47,7 +46,7 @@ class View:
         new_window = new_view_class(**kwargs)
         new_window.display()
 
-    def select(self):
+    def select(self, event):
         return self.actions[self.highlighted_element](self.highlighted_element)
 
     def add_image(self, filename, x, y, subsample_x, subsample_y, anchor):
@@ -60,19 +59,27 @@ class View:
 
     def mainloop(self):
         #self.window.mainloop()
-        while (True):
-            for butt in self.highlightable:
-                self.highlighted_element = butt
-                butt.config(background="black")
-                self.window.update_idletasks()
-                self.window.update()
-                sleep(2)
-                butt.config(background="#FAE3B4", command=None)
-                self.window.update_idletasks()
-                self.window.update()
+        butts = list(self.actions.keys())
+        i = 0
+        butt = butts[i]
+        self.highlighted_element = butt
+        butt.config(background="black")
+
+        def task(self, butts, i):
+            self.highlighted_element.config(background="#FAE3B4")
+            i = (i + 1) % len(butts)
+            butt = butts[i]
+            self.highlighted_element = butt
+            butt.config(background="black")
+            self.window.update_idletasks()
+            self.window.update()
+            self.window.after(self.user_settings.highlight_time, lambda : task(self, butts, i))
+
+        self.window.after(self.user_settings.highlight_time, lambda : task(self, butts, i))
+        self.window.mainloop()
+
 
     def register(self, button, action):
-        self.highlightable.append(button)
         self.actions[button] = action
 
     @abstractmethod

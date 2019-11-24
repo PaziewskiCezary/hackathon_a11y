@@ -31,13 +31,13 @@ class YoutubeView(View):
         resources_path = path.join(path.dirname(__file__), "../images/")
 
         b = self.add_image(resources_path + "strzalka.png", 0.2, 1.0, 2, 2, "s")
-        self.register(b, lambda : self.change_view(MainView))
+        self.register(b, lambda x : self.change_view(MainView))
         b = self.add_image(resources_path + "przod.png", 0.4, 1.0, 4, 4, "s")
-        self.register(b, self.stop)
+        self.register(b, lambda x : self.stop())
         b = self.add_image(resources_path + "pauza.png", 0.6, 1.0, 4, 4, "s")
-        self.register(b, self.pause)
+        self.register(b, lambda x : self.pause())
         b = self.add_image(resources_path + "start.png", 0.8, 1.0, 4, 4, "s")
-        self.register(b, self.play)
+        self.register(b, lambda x : self.play())
 
         self.mainloop()
 
@@ -69,10 +69,13 @@ class YoutubeView(View):
     def play_film(self, file):
         """Plays a file"""
 
-        if file.startswith('http'):
-            v = pafy.new(file)
-            v = v.getbest()
-            file = urllib.parse.unquote(v.url)
+        if file.startswith("http"):
+            if "yout" in file:
+                v = pafy.new(file)
+                v = v.getbest()
+                file = urllib.parse.unquote(v.url)
+            elif "spotify" in file:
+                file = urllib.parse.unquote(file)
 
         self.Media = self.vlc_instance.media_new(file)
         self.vlc_player.set_media(self.Media)
