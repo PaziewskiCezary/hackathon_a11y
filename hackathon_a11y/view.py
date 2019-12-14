@@ -75,11 +75,11 @@ class View:
             butt.config(background="black")
             self.window.update_idletasks()
             self.window.update()
-            self.task = self.window.after(self.user_settings.highlight_time, lambda : highlight_next_item(self, i))
             try:
                 os.system("mplayer " + butt.sound)
             except Exception:
                 pass
+            self.task = self.window.after(self.user_settings.highlight_time, lambda : highlight_next_item(self, i))
 
 
         self.window.after(self.user_settings.highlight_time, lambda : highlight_next_item(self, i))

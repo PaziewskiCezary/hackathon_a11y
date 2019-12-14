@@ -9,9 +9,9 @@ resources_path_music = path.join(path.dirname(__file__), "../sounds/")
 
 class YouTubeKeyboardView(View):
     def show_keyboard(self, keyboard):
-        uppercased = ['\u2b8c', 'Q', 'W', 'E', 'Ę', 'R', 'T', 'Y', 'U', 'I', 'O', 'Ó', 'P',
-                       '\u2b8c', 'A', 'Ą', 'S', 'Ś', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ł',
-                       '\u2b8c', 'Z', 'Ź', 'Ż', 'X', 'C', 'Ć', 'V', 'B', 'N', 'Ń', 'M', '1',
+        uppercased = ['\u2b8c', 'A', '1', 'W', 'E', 'Ę', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
+                       '\u2b8c', 'Q', 'Ą', 'S', 'Ś', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ł',
+                       '\u2b8c', 'Z', 'Ź', 'Ż', 'X', 'C', 'Ć', 'V', 'B', 'N', 'Ń', 'M', 'Ó',
                        '\u2b8c', 'SPACJA', 'COFNIJ']
         keyboard_row = 0
         keyboard_col = 0
