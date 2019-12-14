@@ -52,7 +52,8 @@ class YoutubeView(View):
         self.mainloop()
 
     def create_vlc_instance(self):
-        self.vlc_instance = vlc.Instance()
+        # self.vlc_instance = vlc.Instance() # not needed since we now have a vlc instance
+        # as a static member of `View`
         self.vlc_player = self.vlc_instance.media_player_new()
         self.window.update()
 

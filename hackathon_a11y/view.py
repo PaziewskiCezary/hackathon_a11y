@@ -2,6 +2,8 @@ import os
 import tkinter as tk
 from abc import abstractmethod
 
+import vlc
+
 from hackathon_a11y.user_settings import UserSettings
 
 class View:
@@ -12,6 +14,9 @@ class View:
         user_settings : UserSettings
             Containts info specific to user, e.g. time between elements
             to highlight
+        vlc_instance : VLC Instance
+        vlc_player : VLC Player
+            Used to play speech hints about highlighted buttons
 
     Attributes:
         highlighted_element : GUI Element
@@ -22,6 +27,8 @@ class View:
             is called with highlighted_element as its argument
     """
     user_settings = UserSettings()
+    vlc_instance = vlc.Instance()
+    vlc_sounds_player = vlc_instance.media_player_new()
 
     def __init__(self, parent_controller):
         self.parent_controller = parent_controller
@@ -76,7 +83,9 @@ class View:
             self.window.update_idletasks()
             self.window.update()
             try:
-                os.system("mplayer " + butt.sound)
+                media = self.vlc_instance.media_new(butt.sound)
+                self.vlc_sounds_player.set_media(media)
+                self.vlc_sounds_player.play()
             except Exception:
                 pass
             self.task = self.window.after(self.user_settings.highlight_time, lambda : highlight_next_item(self, i))
