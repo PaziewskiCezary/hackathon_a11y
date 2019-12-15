@@ -1,5 +1,4 @@
 requests
 python-vlc
 pafy
-youtube-dl
 Pillow

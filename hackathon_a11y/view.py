@@ -1,10 +1,10 @@
-import os
 import tkinter as tk
 from abc import abstractmethod
 
 import vlc
 
 from hackathon_a11y.user_settings import UserSettings
+
 
 class View:
     """
