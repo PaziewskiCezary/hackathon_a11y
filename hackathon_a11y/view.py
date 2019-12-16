@@ -65,6 +65,8 @@ class View:
 
     def mainloop(self):
         #self.window.mainloop()
+        self.window.after(100, lambda: self.window.focus_force())
+		
         butts = self.highlightable
         i = 0
         butt = butts[i]
@@ -90,7 +92,7 @@ class View:
                 pass
             self.task = self.window.after(self.user_settings.highlight_time, lambda : highlight_next_item(self, i))
 
-
+		
         self.window.after(self.user_settings.highlight_time, lambda : highlight_next_item(self, i))
         self.window.mainloop()
 

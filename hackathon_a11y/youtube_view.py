@@ -20,10 +20,7 @@ class YoutubeView(View):
         self.video_id = video_id
 
     def display(self):
-        self.create_vlc_instance()
-
         self.video_panel = ttk.Frame(self.window)
-        self.play_film("https://youtu.be/" + self.video_id)
         self.video_panel.place(relheight=0.8, relwidth=1.0, relx=0.0, rely=0.0, anchor="nw")
 
         resources_path = path.join(path.dirname(__file__), "../images/")
@@ -49,6 +46,7 @@ class YoutubeView(View):
         b.sound = resources_path_music + 'przod.mp3'
         self.register(b, lambda x : self.forward())
 
+        self.window.after(10, lambda : self.play_film("https://youtu.be/" + self.video_id))
         self.mainloop()
 
     def create_vlc_instance(self):
@@ -88,7 +86,8 @@ class YoutubeView(View):
 
     def play_film(self, file):
         """Plays a file"""
-
+        self.create_vlc_instance()
+        
         if file.startswith("http"):
             if "yout" in file:
                 v = pafy.new(file)
