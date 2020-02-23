@@ -66,7 +66,7 @@ class View:
     def mainloop(self):
         #self.window.mainloop()
         self.window.after(100, lambda: self.window.focus_force())
-		
+        
         butts = self.highlightable
         i = 0
         butt = butts[i]
@@ -85,14 +85,16 @@ class View:
             self.window.update_idletasks()
             self.window.update()
             try:
-                media = self.vlc_instance.media_new(butt.sound)
-                self.vlc_sounds_player.set_media(media)
-                self.vlc_sounds_player.play()
+                if butt.sound_permits > 0:
+                    butt.sound_permits -= 1
+                    media = self.vlc_instance.media_new(butt.sound)
+                    self.vlc_sounds_player.set_media(media)
+                    self.vlc_sounds_player.play()
             except Exception:
                 pass
             self.task = self.window.after(self.user_settings.highlight_time, lambda : highlight_next_item(self, i))
 
-		
+        
         self.window.after(self.user_settings.highlight_time, lambda : highlight_next_item(self, i))
         self.window.mainloop()
 
@@ -100,6 +102,7 @@ class View:
     def register(self, button, action):
         self.highlightable.append(button)
         self.actions[button] = action
+        button.sound_permits = 10000000 # Horrible hack
 
     def unregister(self, button):
         self.highlightable.remove(button)

@@ -29,22 +29,27 @@ class YoutubeView(View):
         b = self.add_image(resources_path + "strzalka.png", 0.1, 1.0, 2, 2, "s")
         b.sound = resources_path_music + 'wstecz.mp3'
         self.register(b, lambda x : self.stop())
+        b.sound_permits = 2
 
         b = self.add_image(resources_path + "tyl.png", 0.3, 1.0, 4, 4, "s")
         b.sound = resources_path_music + 'tyl.mp3'
         self.register(b, lambda x: self.back())
+        b.sound_permits = 2
 
         b = self.add_image(resources_path + "pauza.png", 0.5, 1.0, 4, 4, "s")
         b.sound = resources_path_music + 'pauza.mp3'
         self.register(b, lambda x : self.pause())
+        b.sound_permits = 2
 
         b = self.add_image(resources_path + "start.png", 0.7, 1.0, 4, 4, "s")
         b.sound = resources_path_music + 'play.mp3'
         self.register(b, lambda x : self.play())
+        b.sound_permits = 2
 
         b = self.add_image(resources_path + "przod.png", 0.9, 1.0, 4, 4, "s")
         b.sound = resources_path_music + 'przod.mp3'
         self.register(b, lambda x : self.forward())
+        b.sound_permits = 2
 
         self.window.after(10, lambda : self.play_film("https://youtu.be/" + self.video_id))
         self.mainloop()
