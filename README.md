@@ -9,7 +9,7 @@ in a normal way. Elements of the interface are highlighted sequentially and have
 The project was developed during Hackathon+ 2019 in Warsaw.
 
 ![alt text](https://raw.githubusercontent.com/PaziewskiCezary/hackathon_a11y/master/basic_instinct.png)
-![alt text](https://raw.githubusercontent.com/PaziewskiCezary/hackathon_a11y/master/basic_instinct2.png)
+![alt text](https://raw.githubusercontent.com/PaziewskiCezary/hackathon_a11y/master/basic_instinct_2.png)
 ![alt text](https://raw.githubusercontent.com/PaziewskiCezary/hackathon_a11y/master/sharon_stone.png)
 
 
