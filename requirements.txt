@@ -1,4 +1,4 @@
 python_vlc==3.0.7110
 requests==2.22.0
 pafy==0.5.5
-Pillow==7.0.0
+Pillow==9.0.0
